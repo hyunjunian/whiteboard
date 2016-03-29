@@ -1,0 +1,12 @@
+
+
+<% if editing.edit == true && editing.user != current_user%>
+  <button disabled>It is being edited</button>
+<%elsif editing.edit == true && editing.user == current_user %>
+  <button id="submittoggle">Submit</button>
+
+<% else %>
+  <button id="edittoggle">Edit</button>
+
+<% end %>
+

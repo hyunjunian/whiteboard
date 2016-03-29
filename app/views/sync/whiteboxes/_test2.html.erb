@@ -1,0 +1,9 @@
+<form action="/whitebox/update" method="put" data-remote=true id="whiteboxform">
+  <textarea id="whiteboxarea" name="content" rows="5" cols="50" readonly="readonly"><%=whitebox.content%></textarea>
+  <input type="hidden" name="whiteboxid" value=<%=whitebox.id%>>
+  <input type="hidden" name="editingid" value=<%=whitebox.editing.id%>>
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+  
+</form>
+
+

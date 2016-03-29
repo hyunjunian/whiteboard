@@ -1,0 +1,47 @@
+<%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+
+
+<%=sync partial: "test2", resource: @whitebox%>
+<form action="/whitebox/update2" method="put" data-remote="true" id="whiteboxedit">
+  <input type="hidden" name="editingid" value=<%=@whitebox.editing.id%>>
+  <input type="hidden" name="userid" value=<%=current_user.id%>>
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+  
+</form>
+
+<%=sync partial: "test3", resource: @editing%>
+<script>
+  $(document).ready(function(){
+    
+    $("#edittoggle").click(function(){
+      $("#whiteboxarea").removeAttr('readonly');
+      $("#whiteboxedit").submit();
+      $("#edittoggle").attr('disabled', true);
+    });
+    $("#submittoggle").click(function(){
+      $("#whiteboxarea").attr('readonly', true);
+      $('#whiteboxform').submit();
+      $("#submittoggle").removeAttr('disabled');
+    });
+
+  });
+</script>
+
+<% @tempall.each do |temp| %>
+  <%= sync partial: 'test1', resource: temp %>
+  <form action="/temp/update" method="put" data-remote=true>
+    <input type="hidden", name="content", value="erased">
+    <input type="hidden", name="tempid", value=<%=temp.id%>>
+    <input type="submit", value="hello">
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+  </form>
+<% end %>
+<%= sync_new partial: 'test1', resource: Temp.new %>
+
+<%= form_for(:temp, :url => {:action => "create"}, :remote => true) do |f| %>
+  <%=f.text_field(:content) %>
+  <%=submit_tag("send") %>
+<% end %>
+
+
+
